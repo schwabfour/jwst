@@ -302,7 +302,7 @@ def _match_models(models, channel, degree, center=None, center_cs='image'):
         if not hasattr(cm, 'weightmap') or cm.weightmap is None:
             weights = np.ones_like(cm.data, dtype=np.float64)
             sigmas = weights / np.sqrt(exptime)
-            mask = np.ones_like(weights, dtype=np.uint8)
+            mask = np.ones_like(weights, dtype=int)
             mask_data.append(mask)
 
         else:
@@ -311,7 +311,7 @@ def _match_models(models, channel, degree, center=None, center_cs='image'):
             bad_data = weights < eps
             weights[bad_data] = eps  # in order to avoid runtime warnings
             sigmas = 1.0 / np.sqrt(exptime * weights)
-            mask = np.logical_not(bad_data).astype(np.uint8)
+            mask = np.logical_not(bad_data).astype(int)
             mask_data.append(mask)
 
         image_data.append(cm.data)
